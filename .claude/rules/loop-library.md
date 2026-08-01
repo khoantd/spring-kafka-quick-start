@@ -1,0 +1,30 @@
+
+# Loop Library — loop-library skill
+
+When the task involves **repeatable agent workflows**, **iterative improvement with verification**, **recurring automation**, or the user asks to **find**, **adapt**, or **design** a loop, follow this rule and read **`.claude/skills/loop-library/SKILL.md`** before acting.
+
+**Skill paths by tool:** `.claude/skills/loop-library/`, `.claude/skills/loop-library/`, `.kiro/skills/loop-library/`, `.agents/skills/loop-library/`
+
+See **`.claude/references/loop-library.md`** for CLI cheat sheet and maintainer refresh.
+
+## Tiered workflow
+
+| Task type | Required action |
+|-----------|-----------------|
+| **Find** — user wants an existing published loop | `npx loop-library@latest recommend "<goal>" --json` → read SKILL → rank top 3 with links |
+| **Adapt** — user names a loop slug | `npx loop-library show <slug> --json` or `adapt <slug> --json` → apply SKILL grounding rules |
+| **Design** — no good match | SKILL interview only (one question at a time) |
+| **One-shot** — single action, no feedback cycle | Do **not** invoke loop-library; use normal workflow commands |
+
+## Smart pairing
+
+1. **CLI first** when shell is available — deterministic shortlist, minimal context cost.
+2. **Skill second** — rank by outcome fit, verification, authority, and stopping conditions.
+3. **One-shot escape hatch** — if no feedback cycle is needed, recommend a single workflow instead of manufacturing a loop.
+
+## Anti-patterns
+
+- Do not invent Loop Library titles, slugs, contributor names, or URLs.
+- Do not enable schedules, production changes, or external messages without explicit user approval.
+- Do not load the full catalog into context when the CLI shortlist suffices.
+- Do not treat designing a loop as authorization to run it autonomously.

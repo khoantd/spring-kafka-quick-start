@@ -1,0 +1,8 @@
+{
+  "steering_dir": ".kiro/steering",
+  "commands_dir": ".kiro/commands",
+  "skills_dir": ".kiro/skills",
+  "agents_dir": ".kiro/agents",
+  "references_dir": ".kiro/references",
+  "note": "Parallels .cursor/settings.json. Kiro loads .kiro/steering/*.md and .kiro/settings/mcp.json."
+}

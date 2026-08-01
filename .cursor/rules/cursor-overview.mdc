@@ -1,0 +1,48 @@
+---
+description: "Cursor agent workflow, principles, and where project guidance lives"
+alwaysApply: true
+---
+
+# Cursor agent — project workflow
+
+This repo mirrors Claude Code’s `.claude/` layout under **`.cursor/`** for Cursor (Composer, Agent, inline Chat).
+
+## Development workflow
+
+Use the same phase order as in `.cursor/CURSOR.md`:
+
+1. **Define** — prompt from `.cursor/commands/spec.md` (paste or attach)
+2. **Plan** — `.cursor/commands/plan.md`
+3. **Build** — `.cursor/commands/build.md` (TDD: `.cursor/skills/tdd/`)
+4. **Verify** — `.cursor/commands/test.md`
+5. **Review** — `.cursor/commands/review.md` (five-axis: `.cursor/skills/code-review/`)
+6. **Ship** — `.cursor/commands/deploy.md`
+
+Supporting prompts: `debug`, `simplify`, `fix-issue`, `handoff`, `resume`, `understand-project` in `.cursor/commands/`. Maintainers: `publish-npm` (say **push to npm repo** to draft README release notes and publish).
+
+**First run:** if **`.agent/onboarding.complete`** is missing, agents automatically run **`/understand`** (`.cursor/commands/understand-project.md`) before other work.
+
+**Agent continuity:** committed **`.agent/SESSION.md`** — read at session start (`/resume`), update at end (`/handoff`). See **`.cursor/rules/agent-continuity.mdc`**.
+
+## Mandatory standards
+
+- Follow **`.cursor/rules/`** (`.mdc`). **`security.mdc`** is always applied; other rule files apply when matching globs are in scope (see each file’s frontmatter).
+- Prefer **tests first** and **small vertical slices** (see `.cursor/skills/incremental-implementation/`).
+- Use **`.cursor/references/`** for checklists (security, testing, performance, accessibility).
+- For **structural** code questions (symbols, callers, callees, traces, impact), prefer **CodeGraph** MCP tools (`codegraph_*`) per **`.cursor/rules/codegraph.mdc`** instead of grep/read exploration loops.
+- When the user wants a **visual call graph**, use **OntoSight CLI** per **`.cursor/rules/ontosight.mdc`** (`royalsolution-ontosight`).
+- For **UI/UX work** (design, build, review, fix, improve — components, pages, layouts, styling, accessibility), read and follow the **ui-ux-pro-max** skill per **`.cursor/rules/ui-ux-pro-max.mdc`**.
+- For **repeatable agent workflows** (find, adapt, or design bounded loops with verification and stopping conditions), read and follow the **loop-library** skill per **`.cursor/rules/loop-library.mdc`**; use `npx loop-library@latest recommend "<goal>" --json` for fast shortlisting when shell access is available.
+
+## Agents (personas)
+
+Specialized instructions live in **`.cursor/agents/`**. In Cursor, **@ mention** the file you want (e.g. `@.cursor/agents/code-reviewer.md`) when you need that role.
+
+## Relation to `.claude/`, `.kiro/`, and Antigravity
+
+- **`.claude/`** — Claude Code
+- **`.cursor/`** — Cursor
+- **`.kiro/`** — Kiro (steering + MCP; sync from `.cursor/` via `npm run sync:all`)
+- **`.agents/`** + **`GEMINI.md`** — Antigravity (workflows, skills; sync from `.cursor/` via `npm run sync:all`)
+
+Keep all four trees aligned when you change workflows or standards. After editing `.cursor/`, run `npm run sync:all`.

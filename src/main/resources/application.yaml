@@ -5,6 +5,12 @@ spring:
   application:
     name: kafka
 
+  web:
+    cors:
+      allowed-origins: "*"
+      allowed-methods: "*"
+      allowed-headers: "*"
+
   kafka:
     consumer:
       auto-offset-reset: earliest
